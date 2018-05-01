@@ -2,11 +2,14 @@
 # -*- coding: utf-8 -*-
 
 
+import socket
 import feedparser
 from .response import CrawlerResponse
 
 
 SAX_EXC_CLS = 'SAXParseException'
+# Таймаут запроса
+NETWORK_TIMEOUT = 10
 
 
 class RssLoad():
@@ -14,44 +17,44 @@ class RssLoad():
     def __init__(self, header_handler=None, items_handler=None):
         # задаём обработчики по умолчанию
         if header_handler is None:
-            header_handler = self.__default_header_handler
+            header_handler = self._default_header_handler
 
         if items_handler is None:
-            items_handler = self.__default_items_handler
-        
+            items_handler = self._default_items_handler
+
         self._feed = header_handler
         self._items = items_handler
-    
+
     def process(self, url):
         """Загрузка данных с ресурса"""
 
+        socket.setdefaulttimeout(NETWORK_TIMEOUT)
         feed_data = feedparser.parse(url)
 
         # храним нефатальную ошибку локально
-        non_fatal_error = None
+        warn = None
         if feed_data.bozo == 1:
             except_handler = _HandlerFeedExceptions(feed_data.bozo_exception)
 
             # если ошибка не фатальная, значит можем продолжать работать
             if except_handler.has_fatal_error:
-                return CrawlerResponse(fatal_error=except_handler.error_message)
-            
-            non_fatal_error = except_handler.error_message
+                return CrawlerResponse(error=except_handler.error_message)
+
+            warn = except_handler.error_message
 
         try :
+            self._feed(feed_data.feed)
             for item in feed_data.entries:
                 self._items(item)
         except Exception as e:
-            return CrawlerResponse(fatal_error=e,
-                                    non_fatal_error=non_fatal_error)
+            return CrawlerResponse(error=e, warning=warn)
         
-        return CrawlerResponse(non_fatal_error=non_fatal_error)
+        return CrawlerResponse(warning=warn)
 
-    def __default_header_handler(self, feed):
-        print("Header: ")
-        print(feed.title)
+    def _default_header_handler(self, feed):
+        print("Header: {}".format(feed.title))
 
-    def __default_items_handler(self, item):
+    def _default_items_handler(self, item):
         print("Item: ")
         print(item.title)
         print(item.pub_date)

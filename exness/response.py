@@ -3,29 +3,29 @@
 
 
 class CrawlerResponse():
-    def __init__(self, fatal_error=None, non_fatal_error=None):
-        self.__fatal_error = fatal_error
-        self.__non_fatal_error = non_fatal_error
+    def __init__(self, error=None, warning=None):
+        self.__error = error
+        self.__warning = warning
 
     @property
     def success(self):
-        if self.has_fatal_error:
+        if self.has_error:
             return False
 
         return True
     
     @property
-    def has_fatal_error(self):
-        return False if self.__fatal_error is None else True
+    def has_error(self):
+        return False if self.__error is None else True
     
     @property
-    def fatal_error(self):
-        return self.__fatal_error
+    def error(self):
+        return self.__error
     
     @property
-    def has_non_fatal_error(self):
-        return False if self.__non_fatal_error is None else True
+    def has_warning(self):
+        return False if self.__warning is None else True
     
     @property
-    def non_fatal_error(self):
-        return self.__non_fatal_error
+    def warning(self):
+        return self.__warning
