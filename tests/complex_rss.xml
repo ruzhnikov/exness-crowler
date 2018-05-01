@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+<title>Sample Feed</title>
+<description>For documentation &lt;em&gt;only&lt;/em&gt;</description>
+<link>http://example.org/</link>
+<pubDate>Tue, 01 May 2018 15:08:39 +0300</pubDate>
+<item>
+    <title>To be or not to be?</title>
+    <link>https://example.org/12345</link>
+    <description>Not to be</description>
+    <pubDate>Mon, 30 Apr 2018 18:10:42 +0000</pubDate>
+</item>
+</channel>
+</rss>

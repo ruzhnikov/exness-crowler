@@ -14,16 +14,16 @@ NETWORK_TIMEOUT = 10
 
 class RssLoad():
     """Класс для загрузки ресурсов с RSS"""
-    def __init__(self, header_handler=None, items_handler=None):
+    def __init__(self, feed_handler=None, item_handler=None):
         # задаём обработчики по умолчанию
-        if header_handler is None:
-            header_handler = self._default_header_handler
+        if feed_handler is None:
+            feed_handler = self._default_feed_handler
 
-        if items_handler is None:
-            items_handler = self._default_items_handler
+        if item_handler is None:
+            item_handler = self._default_item_handler
 
-        self._feed = header_handler
-        self._items = items_handler
+        self._feed = feed_handler
+        self._items = item_handler
 
     def process(self, url):
         """Загрузка данных с ресурса"""
@@ -51,14 +51,15 @@ class RssLoad():
         
         return CrawlerResponse(warning=warn)
 
-    def _default_header_handler(self, feed):
+    def _default_feed_handler(self, feed):
         print("Header: {}".format(feed.title))
 
-    def _default_items_handler(self, item):
+    def _default_item_handler(self, item):
         print("Item: ")
         print(item.title)
-        print(item.pub_date)
-        print(item.body)
+        print(item.link)
+        print(item.published)
+        print(item.description)
 
 
 class _HandlerFeedExceptions():

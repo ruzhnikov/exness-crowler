@@ -14,6 +14,7 @@ setup(
     author="Alexander Ruzhnikov",
     author_email="ruzhnikov85@gmail.com",
     python_requires='>=3',
+    tests_require=["pytest"],
     install_requires=['feedparser'],
     packages=find_packages(exclude=['tests']),
     long_description="""
