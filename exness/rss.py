@@ -45,7 +45,11 @@ class RssLoad():
         try :
             self._feed(feed_data.feed)
             for item in feed_data.entries:
-                self._items(item)
+                
+                # if handler retuned false, it means not necessary handle data anymore
+                item_handle_res = self._items(item)
+                if item_handle_res is not None and item_handle_res is False:
+                    break
         except Exception as e:
             return CrawlerResponse(error=e, warning=warn)
         
@@ -54,12 +58,16 @@ class RssLoad():
     def _default_feed_handler(self, feed):
         print("Header: {}".format(feed.title))
 
+        return True
+
     def _default_item_handler(self, item):
         print("Item: ")
         print(item.title)
         print(item.link)
         print(item.published)
         print(item.description)
+
+        return True
 
 
 class _HandlerFeedExceptions():
