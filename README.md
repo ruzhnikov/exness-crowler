@@ -4,4 +4,4 @@ Exness crowler resources
 
 ## DESCRIPTION
 
-Тестовое задание. Сборщик данных с ресурсов
+Test exercise. Collect data from RSS resources
