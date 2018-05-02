@@ -3,7 +3,7 @@
 
 
 import unittest
-from exness.response import CrawlerResponse
+from resources_crawler.response import CrawlerResponse
 
 class TestCrawlerResponse(unittest.TestCase):
     def test_empty_construct(self):

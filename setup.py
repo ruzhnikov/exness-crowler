@@ -4,13 +4,13 @@
 
 from setuptools import setup, find_packages
 
-import exness
+import resources_crawler
 
 
 setup(
-    name="exness_crawler",
-    version=exness.__version__,
-    description="Exness crawler",
+    name="resources_crawler",
+    version=resources_crawler.__version__,
+    description="Collector of resources",
     author="Alexander Ruzhnikov",
     author_email="ruzhnikov85@gmail.com",
     python_requires='>=3',

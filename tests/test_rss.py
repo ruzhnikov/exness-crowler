@@ -2,8 +2,8 @@
 
 
 import pytest
-from exness.rss import RssLoad
-from exness.crawler import Crawler
+from resources_crawler.rss import RssLoad
+from resources_crawler.crawler import Crawler
 
 
 FEED_DATA = dict()
