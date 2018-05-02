@@ -1,6 +1,6 @@
 # NAME
 
-Exness crowler resources
+Collector of resources
 
 ## DESCRIPTION
 
